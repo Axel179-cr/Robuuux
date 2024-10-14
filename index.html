@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quieres Robux?</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        #texto-centrado {
+            font-size: 48px;
+            margin-top: 100px;
+        }
+
+        #texto-inferior {
+            font-size: 24px;
+            margin-top: 50px;
+        }
+
+        #boton-copiar {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin-top: 50px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="texto-centrado">Quieres Robux?</h1>
+    <p id="texto-inferior">aqui esta el codigo,copialo yo lo verifico y listop:</p>
+    <span id="ip-address"></span>
+    <button id="boton-copiar">Copiar codigo</button>
+
+    <script>
+        function copiarIP() {
+            var ip = document.getElementById('ip-address').innerText;
+            navigator.clipboard.writeText(ip).then(function() {
+                alert('IP address copiado al portapapeles');
+            });
+        }
+
+        // Obtenemos la dirección IP del usuario
+        function obtenerIP() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'https://api.ipify.org/?format=json', true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var respuesta = JSON.parse(xhr.responseText);
+                    document.getElementById('ip-address').innerText = respuesta.ip;
+                }
+            };
+            xhr.onerror = function() {
+                document.getElementById('ip-address').innerText = 'No se pudo obtener tu IP address';
+            };
+            xhr.send();
+        }
+
+        // Ejecutamos las funciones
+        obtenerIP();
+        document.getElementById('boton-copiar').addEventListener('click', copiarIP);
+    </script>
+</body>
+</html>
